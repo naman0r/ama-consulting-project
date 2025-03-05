@@ -8,7 +8,7 @@
 
 ## Tech Stack and implementaton:
 
-- Backend: Flask / FastAPI (Python) or Express.js (Node.js)
+- Backend: Flask (python server library)
 - Database: Supabase (Easiest)
 - Frontend: React.js (easiest)
 - Slack Integration: Slack API + Webhooks for automated messages
