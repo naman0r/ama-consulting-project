@@ -1,8 +1,9 @@
 # AMA Consultng project.
 
-- (link to task document)[https://docs.google.com/document/d/1Bu-ZWDktk7AdilxEV8L8Vtd-l4bZclC0S5HeYbiPFHc/edit?tab=t.0#heading=h.aph1q9yeitrv]
+- [link to task document](https://docs.google.com/document/d/1Bu-ZWDktk7AdilxEV8L8Vtd-l4bZclC0S5HeYbiPFHc/edit?tab=t.0#heading=h.aph1q9yeitrv)
+- [github repo](https://github.com/naman0r/ama-consulting-project)
 
-- Group members: Rishi Dilip, Ioanna Damianov, Krisha Dani, Madhav Nair, Naman Rusia
+- Group members: **Rishi Dilip, Ioanna Damianov, Krisha Dani, Madhav Nair, Naman Rusia**
 - Group Liason: Ayush
 
 ## Tech Stack and implementaton:
@@ -25,3 +26,5 @@
 - /admin/override POST Manually select AMA
 
 ## Slack Integration;
+
+- [basic tutorial on how to create a slackbot](https://www.kubiya.ai/resource-post/how-to-build-a-slackbot-with-python)
