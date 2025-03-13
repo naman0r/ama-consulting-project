@@ -18,3 +18,5 @@
 - this is how to set it up: https://bootstrapped.app/guide/how-to-use-supabase-with-flask
 - get on this ASAP. load environment variables from .env (copy the .env template into a new file in the backend folder called .env ; this is so we dont leak api keys and sensitive data to github)
 - you need to get the keys from supabase.com
+
+edit on readme- krisha
