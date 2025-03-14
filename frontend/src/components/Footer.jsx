@@ -1,11 +1,11 @@
 import React from "react";
+import "../styles/Footer.css";
 
 const Footer = () => {
   return (
-    <div>
-      this is the footer. style how you want. to make it stick to the bottom of
-      the page, do your research and then implement
-    </div>
+    <footer> 
+      Contact us if you have any questions!
+    </footer>
   );
 };
 

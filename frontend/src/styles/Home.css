@@ -1,7 +1,16 @@
-.example {
+.p1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: red;
-  background-color: blue;
+  color: #382d5e;
+  background-color: #ece3e3;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+body
+{
+  background-color: #ece3e3;
 }
