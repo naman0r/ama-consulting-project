@@ -14,8 +14,10 @@
   }
 
   img {
-    width: 250px;
+    width: 100px;
     height: auto;
+    position: absolute;
+    left: 20px;
   }
 
   header {
@@ -23,6 +25,11 @@
     justify-content: center; 
     align-items: center;
     background-color: #ece3e3;
+    color: #382d5e;
+    font-family: 'Quicksand';
+    font-size: 30px;
+    text-align: center;
+    padding: 40px;
   }
 
   .nav_bar {
@@ -40,5 +47,5 @@
   }
 
   .nav_button:hover, .profile_button:hover {
-    background-color: #e3b6b6;
+    background-color: #f7a8a8;
   }
