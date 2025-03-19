@@ -38,10 +38,68 @@ def tests_supabase():
     return jsonify({"message": response}), 200
     # can only reqest GET from this endpoint. 
 
+# /users/ GET: List all users
+@app.route('/users/', methods=["GET"])
+def get_users():
+    response = supabase.table("users").select("*").execute()
+    users = response.data
+    return jsonify({"users": users}), 200
 
 
+# /fun_facts/ GET: Retrieve all fun facts
+@app.route('/fun_facts/', methods=["GET"])
+def get_fun_facts():
+    response = supabase.table("fun_facts").select("*").execute()
+    fun_facts = response.data
+    return jsonify({"fun_facts": fun_facts}), 200
+
+# /fun_facts/ POST: Submit fun facts
+@app.route('/fun_facts/', methods=["POST"])
+def submit_fun_fact():
+    data = request.json
+    user_id = data.get("user_id")
+    fact_text = data.get("fact_text")
+
+    if not user_id or not fact_text:
+        return jsonify({"error": "Missing required fields"}), 400
+
+    response = supabase.table("fun_facts").insert({
+        "user_id": user_id,
+        "fact_text": fact_text,
+        "created_at": "now()"
+    }).execute()
+
+    if response.error:
+        return jsonify({"error": response.error.message}), 500
+    
+    return jsonify({"message": "Fun fact added successfully"}), 201
+
+# /ama/select POST: Randomly selects a user
+@app.route('/ama/select', methods=["POST"])
+def select_random_user():
+    response = supabase.table("users").select("*").execute()
+    users = response.data
+
+    if not users:
+        return jsonify({"error": "No users available"}), 404
+
+    selected_user = random.choice(users)
+    
+    # Example of inserting into the AMA table with the selected user
+    ama_response = supabase.table("ama").insert({
+        "user_id": selected_user["id"],
+        "selected_date": "now()",
+        "blurb": f"Selected user: {selected_user['name']}",
+        "formatted_message": None,
+        "sent_status": False
+    }).execute()
+
+    if ama_response.error:
+        return jsonify({"error": ama_response.error.message}), 500
+    
+    return jsonify({"selected_user": selected_user}), 200
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=4000)
+    app.run(debug=True, host='0.0.0.0', port=4001)
 

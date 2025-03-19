@@ -4,7 +4,7 @@
 
 - python3 -m venv venv
 - source venv/bin/activate
-- pip3 install flask flas-cors supabase
+- pip3 install flask flask-cors supabase
 - python3 main.py
   - this runs the flask server
     - open up http://localhost:4000/
