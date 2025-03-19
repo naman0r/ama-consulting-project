@@ -1,12 +1,30 @@
-# React + Vite
+# React (vite setup) redme
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## what to do if you run into problems with the frontend?
 
-Currently, two official plugins are available:
+- Make sure your terminal is in the frontend folder (cd frontend)
+- run: npm install {this installs all the dependencies}
+- run: npm run dev { in terminal, if it doesnt work it measn that there is something wrong with your code so go fix that}
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Architecture:
 
-## Expanding the ESLint configuration
+- Folders (important, you need to know what to import and where it is!)
+  - Components
+  - styles (all the .css files, you can add a new file for each page/component)
+  - pages (full pages, etc: home, login, etc. )
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Adding new routes:
+
+- go to Main.jsx. this is the entrypoint of our frontend. you can see all the routes (eg: /, /login)
+- each route corresponds to it's own page
+
+1. MAKE A PAGE IN Pages/ folder
+2. Make styles (optional but we need it to make it look good)
+3. Add to the Main.jsx file (add route, add import, add to router object. )
+4. make sure the run runs! if not, either a error message will blare out, or if you see a blank screen:
+
+- click INSPECT element (right click), go to console, and the error should be there. you can use chat to troubleshoot
+
+## styles:
+
+We are NOT using inline styling (ie, styles is not where the HTML code is, it is in its own file in the styles/ folder. you need to IMPORT the stylesheet when using in the .jsx page/component)

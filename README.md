@@ -28,3 +28,30 @@
 ## Slack Integration;
 
 - [basic tutorial on how to create a slackbot](https://www.kubiya.ai/resource-post/how-to-build-a-slackbot-with-python)
+
+## schema:
+
+Users
+
+- id (Primary Key)
+- name
+- email
+- role (User/Admin)
+- slack_id
+- created_at
+
+Fun Facts
+
+- id (Primary Key)
+- user_id (Foreign Key → Users)
+- fact_text
+- created_at
+
+AMA:
+
+- id (Primary Key)
+- user_id (Foreign Key → Users)
+- selected_date
+- blurb
+- formatted_message
+- sent_status (Boolean)
