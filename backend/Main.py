@@ -39,7 +39,7 @@ def tests_supabase():
     # can only reqest GET from this endpoint. 
 
 # /users/ GET: List all users
-@app.route('/users/', methods=["GET"])
+@app.route('/users', methods=["GET"])
 def get_users():
     response = supabase.table("users").select("*").execute()
     users = response.data
@@ -52,6 +52,27 @@ def get_fun_facts():
     response = supabase.table("fun_facts").select("*").execute()
     fun_facts = response.data
     return jsonify({"fun_facts": fun_facts}), 200
+
+
+@app.route('/ama/history', methods=["GET"])
+def get_ama_history():
+    # Query the AMA table to get all past AMA details
+    response = supabase.table("AMA").select("id, user_id, selected_date, blurb, formatted_message, sent_status").execute()
+    ama_history = response.data
+
+    if not ama_history:
+        return jsonify({"error": "No AMA history found"}), 404
+
+    # Fetch user details for each AMA entry
+    detailed_history = []
+    for ama in ama_history:
+        user_response = supabase.table("Users").select("id, name, email").eq("id", ama["user_id"]).execute()
+        user_data = user_response.data
+        if user_data:
+            ama["user"] = user_data[0]  # Add user details to AMA entry
+        detailed_history.append(ama)
+
+    return jsonify({"ama_history": detailed_history}), 200
 
 # /fun_facts/ POST: Submit fun facts
 @app.route('/fun_facts/', methods=["POST"])
