@@ -1,0 +1,27 @@
+.ama_history {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: white;
+    padding: 40px;
+    border-radius: 10%;
+    width: 100%;
+    max-width: 250px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #45b4eb;
+  }
+
+  .select_btn {
+    margin-left: 12px;
+  }
+
+
+  .admin_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  
