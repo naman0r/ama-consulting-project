@@ -5,12 +5,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import AddAma from "./pages/AddAma";
+import Profile from "./pages/Profile";
+import NewMember from "./pages/NewMember";
+import Admin from "./pages/Admin";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
-  { path: "/addAma", element: <AddAma />},
+  { path: "/profile", element: <Profile /> },
+  { path: "/new-member", element: <NewMember /> },
+  { path: "/admin", element: <Admin /> }
 ]);
 
 createRoot(document.getElementById("root")).render(

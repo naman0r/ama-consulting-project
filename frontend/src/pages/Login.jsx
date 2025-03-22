@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 import "../styles/Home.css";
+import "../styles/Login.css";
 import TopNav from "../components/TopNav";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -31,7 +34,9 @@ const navigate = useNavigate();
     <div>
       <Header />
       <TopNav />
-      <h1>Login</h1>
+
+      <main className="login_page">
+      <p className="p3">Login</p>
       <form onSubmit={handleSubmit}>
         <div>
           <p className="p2">Email:</p>
@@ -51,7 +56,13 @@ const navigate = useNavigate();
             required
           />
         </div>
+        <Link className="login_link" to="/admin">
+        <button className="login_btn">
+          Login
+        </button>
+        </Link>
       </form>
+      </main>
       <Footer />
     </div>
   );
