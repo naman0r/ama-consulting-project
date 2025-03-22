@@ -3,20 +3,18 @@
   justify-content: center;
   align-items: center;
   color: #5c5c5c;
-  background-color: #dee0e2;
   font-family: 'Quicksand', sans-serif;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  text-align: left;
+  text-align: center;
 }
 
 .p2 {
   display: flex;
-  justify-content: left;
-  align-items: left;
-  color: #5c5c5c;
-  background-color: #dee0e2;
+  justify-content: center;
+  align-items: center;
+  color: white;
   font-family: 'Quicksand', sans-serif;
   margin-top: 10px;
   margin-left: 10px;
@@ -24,17 +22,53 @@
   text-align: left;
 }
 
-body
-{
-  background-color: #dee0e2;
-}
-
-h1 {
+.p3 {
   display: flex;
-    justify-content: left; 
+    justify-content: center; 
     color: #5c5c5c;
     font-family: 'Quicksand';
     font-size: 20px;
     text-align: left;
     
 }
+
+.ama_feed {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: white;
+  padding: 40px;
+  border-radius: 10%;
+  width: 100%;
+  max-width: 250px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #45b4eb;
+}
+
+.home_page {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+button, .select_btn {
+  background-color: #45b4eb;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Quicksand';
+}
+
+body
+{
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+
