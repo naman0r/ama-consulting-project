@@ -1,7 +1,40 @@
-.example {
+.p1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: red;
-  background-color: blue;
+  color: #5c5c5c;
+  background-color: #dee0e2;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: left;
+}
+
+.p2 {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  color: #5c5c5c;
+  background-color: #dee0e2;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: left;
+}
+
+body
+{
+  background-color: #dee0e2;
+}
+
+h1 {
+  display: flex;
+    justify-content: left; 
+    color: #5c5c5c;
+    font-family: 'Quicksand';
+    font-size: 20px;
+    text-align: left;
+    
 }
