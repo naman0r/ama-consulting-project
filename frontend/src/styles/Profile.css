@@ -1,4 +1,4 @@
-.profile_field {
+.profile_field_column {
     display: flex;
     flex-direction: column;
     background: #45b4eb;
@@ -11,30 +11,34 @@
     justify-content: center;
     border: 2px solid white;
     margin-bottom: 10px;
-    height: 30%;;
+    height: 30%;
+    margin-right: 10px;
+    
 }
 
 
-.profile_field_lg {
+.profile_field_lg_column {
     display: flex;
     flex-direction: column;
     background: #45b4eb;
     padding: 10px;
     border-radius: 10%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    width: 40%;
+    width: 100%;
     max-width: 300px;
     align-items: center;
     justify-content: center;
     border: 2px solid white;
     margin-bottom: 10px;
-    height: 30%;;
+    height: 30%;
+    margin-right: 10px;
 }
 
 
-.profile_page {
+.profile_page_row {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
 }
