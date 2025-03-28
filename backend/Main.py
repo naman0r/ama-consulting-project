@@ -3,6 +3,7 @@
 import os
 import random
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from supabase import create_client, Client
 from dotenv import load_dotenv
 
@@ -14,6 +15,8 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = Flask(__name__)
+
+CORS(app)
 
 @app.route('/', methods=["GET"])
 def hello_world():
@@ -43,6 +46,26 @@ def get_users():
     users = response.data
     return jsonify({"users": users}), 200
 
+# @app.route('/users', methods=["POST"])
+# @app.route('/users/', methods=["POST"])
+# def add_user():
+#     data = request.json
+#     user_email = data.get("user_id")
+#     fact_text = data.get("fact_text")
+
+#     if not user_id or not fact_text:
+#         return jsonify({"error": "Missing required fields"}), 400
+
+#     response = supabase.table("fun_facts").insert({
+#         "user_id": user_id,
+#         "fact_text": fact_text,
+#         # "created_at": "now()"
+#     }).execute()
+
+#     if not response.data:
+#         return jsonify({"error": "Insert failed, no data returned"}), 500
+    
+#     return jsonify({"message": "Fun fact added successfully"}), 201
 
 # /fun_facts/ GET: Retrieve all fun facts
 @app.route('/fun_facts/', methods=["GET"])

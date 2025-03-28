@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import "../styles/Home.css";
-import "../styles/NewMember.css"
+import "../styles/NewMember.css";
 import TopNav from "../components/TopNav";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -30,75 +30,81 @@ const NewMember = () => {
     <>
       <Header />
       <TopNav />
-    <div className="newmem_page">
-      <p className="p3">Submit Your AMA</p>
-      <form>
-        <p className="p2">Enter your name:
-        <input 
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Your Name"
-          className="p4"
-        /> </p>
-        
-      <p className="p2">Enter your email:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Your Email"
-          className="p4"
-        /> </p>
+      <div className="newmem_page">
+        <p className="p3">Submit Your AMA</p>
+        <form>
+          <p className="p2">
+            Enter your name:
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="p4"
+            />{" "}
+          </p>
 
-         <p className="p2">Create your password:
-        <input 
-          type="text"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-          className="p4"
-        /> </p>
-        <p className="p2">Enter your Slack ID:
-        <input 
-          type="text"
-          name="slackId"
-          value={formData.slackId}
-          onChange={handleChange}
-          placeholder="Your Name"
-          className="p4"
-        /></p>
+          <p className="p2">
+            Enter your email:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Your Email"
+              className="p4"
+            />{" "}
+          </p>
+
+          <p className="p2">
+            Create your password:
+            <input
+              type="text"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Password"
+              className="p4"
+            />{" "}
+          </p>
+          <p className="p2">
+            Enter your Slack ID:
+            <input
+              type="text"
+              name="slackId"
+              value={formData.slackId}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="p4"
+            />
+          </p>
           <p className="p2">Enter 5 Fun Facts and a short description:</p>
           {formData.funFacts.map((fact, index) => (
-            <textarea className="textarea_facts"
+            <textarea
+              className="textarea_facts"
               key={index}
               type="text"
               value={fact}
               onChange={(e) => handleFunFactChange(index, e.target.value)}
               placeholder={`Fun Fact #${index + 1}`}
-             
             ></textarea>
           ))}
 
-        <textarea className="textarea_blurb"
-          name="blurb"
-          value={formData.blurb}
-          onChange={handleChange}
-          placeholder="Write a short personal blurb..."
-        ></textarea>
+          <textarea
+            className="textarea_blurb"
+            name="blurb"
+            value={formData.blurb}
+            onChange={handleChange}
+            placeholder="Write a short personal blurb..."
+          ></textarea>
 
-        <button className="submit_btn">
-          Submit 
-        </button>
-      </form>
-    </div>
-    <Footer />
+          <button className="submit_btn">Submit</button>
+        </form>
+      </div>
+      <Footer />
     </>
   );
 };
-
 
 export default NewMember;
