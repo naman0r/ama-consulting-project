@@ -30,7 +30,7 @@ function Login() {
       }
 
       // Find a user that matches both email and password
-      const matchedUser = data.users.find(user => user.email === email);
+      const matchedUser = data.users.find(user => user.email === email && user.password === password);
 
       if (matchedUser) {
         navigate(`/profile`);
