@@ -7,14 +7,13 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 
-function Admin() {
+function SelectAMA() {
   
   return (
     <>
       <Header />
       <TopNav />
-
-      <div className="admin_page">
+    <div className="admin_page">
       <div className="toggle">
         <Link className="toggle_link" to="/admin">  
       <button className="toggle_btn">History</button> </Link>
@@ -22,16 +21,11 @@ function Admin() {
       <button className="toggle_btn">Select</button>
       </Link>
         </div>
-      <div className="ama_history">
-      <p className="p1">
-        feed with the past AMAs, including name, fun facts, and blurb,  will show here
-      </p>
-      </div>
+    </div>
       
-      </div>
       <Footer />
     </>
   );
 }
 
-export default Admin;
+export default SelectAMA;

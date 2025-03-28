@@ -13,9 +13,30 @@
     border: 2px solid #45b4eb;
   }
 
-  .select_btn {
-    margin-left: 35px;
+  .toggle_btn {
     padding: 20px;
+    align-items: center;
+    background-color:#5c5c5c;
+    display: flex;
+    justify-content: center;
+    border: 2px solid white;
+  }
+
+  .toggle_link {
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+
+  .toggle {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
   }
 
 
@@ -23,7 +44,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   
