@@ -1,4 +1,4 @@
-.ama_history {
+.container {
     display: flex;
     flex-direction: column;
     background: #d7f1fc;
@@ -20,7 +20,7 @@
     margin-bottom: 10px;
   }
 
-  .history_content {
+  .container_content {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -49,7 +49,7 @@
     border: 2px solid #45b4eb;
   }
 
-  .second_row {
+  .row {
     display: flex;
     align-items: left;
     justify-content: left;
@@ -126,16 +126,7 @@
     flex-direction: column;
   }
 
-  .p5 {
-  display: flex;
-  justify-content: center; 
-  color: #5c5c5c;
-  font-family: 'Quicksand';
-  font-size: 30px;
-  text-align: left;
-  margin-top: 0px;
-  margin-bottom: 10px;
-  }
+ 
   
   .hist_btn.active,
   .select_btn.active {

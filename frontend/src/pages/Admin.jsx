@@ -44,7 +44,7 @@ function Admin() {
     </div>
 
     
-      <div className="ama_history">
+      <div className="container">
         <p className="p5">AMA History</p>
         <div className="history_header">
       <button className="prev_ama"><i class="fa-solid fa-arrow-left"></i></button>
@@ -52,10 +52,10 @@ function Admin() {
       <button className="next_ama"><i class="fa-solid fa-arrow-right"></i></button>
       </div>
       
-      <div className="history_content">
+      <div className="container_content">
       <div className="small_field">
       <p className="p4">Name: {name}</p> </div>
-      <div className="second_row">
+      <div className="row">
       <div className="large_field">
       <p className="p4">Fun Facts: <br></br>{funfacts}</p> 
       </div>

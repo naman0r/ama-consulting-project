@@ -52,7 +52,7 @@ function Login() {
       <TopNav />
 
       <main className="login_page">
-        <p className="p3">Login</p>
+        <p className="p5">Login</p>
         <form onSubmit={handleSubmit}>
           <div>
             <p className="p2">Email:</p>
