@@ -4,13 +4,13 @@
 
 - python3 -m venv venv
 - source venv/bin/activate
-- pip3 install flask flas-cors supabase
+- pip3 install flask flask-cors supabase
 - python3 main.py
   - this runs the flask server
     - open up http://localhost:4000/
     - this is the address and port the flask is running on locally.
 
-## how it works, and what we are doig
+## how it works, and what we are doing
 
 - in main.py, i set up a very simple route "/" route.
 - i am also setting up a "/test" route, which you have to implemet @madhav
