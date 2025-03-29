@@ -2,12 +2,20 @@
 
 import os
 import random
+import ssl
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask import Flask, jsonify
 from supabase import create_client, Client
 import os
 from dotenv import load_dotenv
+# import needed for the slack integration. 
+from slack_sdk.webhook import WebhookClient
+
+
+ssl._create_default_https_context = ssl._create_unverified_context  # Unsafe fallback fix for prod
+
 
 load_dotenv()
 
@@ -146,7 +154,20 @@ def select_random_user():
     
     return jsonify({"selected_user": selected_user}), 200
 
+@app.route('/ama/history', methods=["GET"])
+def get_ama_details():
+    response = supabase.table("ama").select("*").execute()
+    response = response.data
+    return jsonify({"message": response}), 200
 
+# @app.route('admin/override', methods=["POST"])
+# def select_ama():
+#     data = request.json
+#     user_id = data.get("user_id")
+
+#     if not user_id:
+#         return jsonify({"error": "Please enter a user"}), 400
+    
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=4001)
 
