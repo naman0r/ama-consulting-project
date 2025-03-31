@@ -8,10 +8,24 @@ import Header from "../components/Header";
 import { Link, useLocation } from "react-router-dom";
 
 function Admin() {
-  const name = "[Name]";
-  const email = "[Email]";
-  const blurb = "[Blurb]";
-  const funfacts = "[fun facts]";
+  const amaPeople = [
+    { name: "Naman Rusia", blurb: "Likes coding.", funfacts: "Naman fun fact.", date: "3/17/25" },
+    { name: "Ioanna Damianov", blurb: "Likes cooking.", funfacts: "Ioanna fun fact.", date: "3/24/25"},
+    { name: "Krisha Dani", blurb: "Likes running.", funfacts: "Krisha fun fact.", date: "3/31/25"},
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % amaPeople.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + amaPeople.length) % amaPeople.length);
+  };
+
+  const { name, blurb, funfacts, date } = amaPeople[currentIndex];
+
   
   const location = useLocation();
   
@@ -22,7 +36,7 @@ function Admin() {
     if (location.pathname === "/select") {
       return "select";
     }
-    return null; // No active button if the path is something else
+    return null;
   };
   
   const activeButton = getActiveButton();
@@ -47,9 +61,11 @@ function Admin() {
       <div className="container">
         <p className="p5">AMA History</p>
         <div className="history_header">
-      <button className="prev_ama"><i class="fa-solid fa-arrow-left"></i></button>
-      <p className="date_text">date goes here</p>
-      <button className="next_ama"><i class="fa-solid fa-arrow-right"></i></button>
+      <button className="prev_ama" onClick={handleNext}>
+        <i class="fa-solid fa-arrow-left"></i></button>
+      <p className="date_text">{date}</p>
+      <button className="next_ama" onClick={handleNext}>
+        <i class="fa-solid fa-arrow-right"></i></button>
       </div>
       
       <div className="container_content">
