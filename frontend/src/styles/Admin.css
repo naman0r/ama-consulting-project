@@ -1,19 +1,98 @@
-.ama_history {
+.container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    background: white;
+    background: #d7f1fc;
     padding: 40px;
     border-radius: 10%;
     width: 100%;
-    max-width: 450px;
+    max-width: 650px;
     max-height: fit-content;
     align-items: center;
     justify-content: center;
     border: 2px solid #45b4eb;
+    margin-bottom: 80px;
   }
 
-  .toggle_btn {
+  .history_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .container_content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-height: fit-content;
+    align-items: center;
+  }
+
+  .small_field {
+    display: flex;
+    background: white;
+    height: 30px;
+    width: 445px;
+    align-items: left;
+    justify-content: left;
+    border: 2px solid #45b4eb;
+  }
+
+  .large_field {
+    display: flex;
+    background: white;
+    height: 200px;
+    width: 300px;
+    align-items: left;
+    justify-content: left;
+    border: 2px solid #45b4eb;
+  }
+
+  .row {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  
+.p4 {
+  font-size: 14px;
+  text-align: left;
+  margin-left: 10px;
+  margin-top: 7px;
+  color: #5c5c5c;
+}
+
+ .prev_ama {
+    border-radius: 50%;
+    width: 20px;
+    justify-content: center;
+    height: 35px;
+    margin-right: 100px; 
+  }
+
+  .next_ama {
+    border-radius: 50%;
+    width: 20px;
+    justify-content: center;
+    height: 35px;
+    margin-left: 100px;
+  }
+
+ .date_text {
+  display: flex;
+  justify-content: center; 
+  color: #5c5c5c;
+  font-family: 'Quicksand';
+  font-size: 20px;
+  text-align: left;
+  border-bottom: 2px solid #45b4eb;
+ }
+
+  .hist_btn, .select_btn {
     padding: 20px;
     align-items: center;
     background-color:#5c5c5c;
@@ -47,4 +126,9 @@
     flex-direction: column;
   }
 
+ 
   
+  .hist_btn.active,
+  .select_btn.active {
+    background-color: #74d0fc;
+  }

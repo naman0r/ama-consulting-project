@@ -36,32 +36,30 @@ const navigate = useNavigate();
       <TopNav />
 
       <main className="login_page">
-      <p className="p3">Login</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p className="p2">Email:</p>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <p className="p2">Password:</p>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <Link className="login_link" to="/admin">
-        <button className="login_btn">
-          Login
-        </button>
-        </Link>
-      </form>
+        <p className="p5">Login</p>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <p className="p2">Email:</p>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <p className="p2">Password:</p>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button className="login_btn">
+            Login
+          </button>
+        </form>
       </main>
       <Footer />
     </div>
