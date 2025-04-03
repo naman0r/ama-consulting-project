@@ -14,7 +14,7 @@ function Profile() {
 
   useEffect(() => {
     if (!user) {
-      alert("User not found. Please log in."); // ideally they wouldn't be able to get to this page unless they are logged in so we should always find the user
+      alert("User not found. Please log in.");
       return;
     }
 
@@ -53,35 +53,40 @@ function Profile() {
     <>
       <Header />
       <TopNav />
-      <p className="p3">Profile</p>
+      <div className="profile_page">
+        <div className="profile_container">
+          <p className="p5">Profile</p>
+          <div className="container_content">
 
-      <div className="profile_page_row">
-        <div className="profile_field_column">
-          <p className="p2">Name: {user?.name || "N/A"}</p>
-        </div>
-        <div className="profile_field_column">
-          <p className="p2">Email: {user?.email || "N/A"}</p>
+            <div className="row">
+              <div className="smaller_field">
+                <p className="p4">Name: {user?.name || "N/A"}</p>
+              </div>
+              <div className="smaller_field">
+                <p className="p4">Email: {user?.email || "N/A"}</p>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="large_field">
+                <p className="p4">Fun Facts:</p>
+                <ul>
+                  {funFacts.length > 0 ? (
+                    funFacts.map((fact, i) => <li key={i} className="p4">{fact}</li>)
+                  ) : (
+                    <p className="p4">No fun facts available.</p>
+                  )}
+                </ul>
+              </div>
+              <div className="large_field">
+                <p className="p4">Blurb:</p>
+                <p className="p4">{blurb}</p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-
-      <div className="profile_page_row">
-        <div className="profile_field_lg_column">
-          <p className="p2">Fun Facts:</p>
-          <ul>
-            {funFacts.length > 0 ? (
-              funFacts.map((fact, i) => <li key={i} className="p2">{fact}</li>)
-            ) : (
-              <p className="p2">No fun facts submitted yet.</p>
-            )}
-          </ul>
-        </div>
-
-        <div className="profile_field_lg_column">
-          <p className="p2">About Me (AMA Blurb):</p>
-          <p className="p2">{blurb}</p>
-        </div>
-      </div>
-
       <Footer />
     </>
   );
