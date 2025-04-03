@@ -33,6 +33,7 @@ function Login() {
       const matchedUser = data.users.find(user => user.email === email && user.password === password);
 
       if (matchedUser) {
+        localStorage.setItem("user", JSON.stringify(matchedUser));
         navigate(`/profile`);
       } else {
         alert('Invalid email or password');
