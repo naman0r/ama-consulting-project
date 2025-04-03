@@ -16,8 +16,6 @@ const router = createBrowserRouter([
   { path: "/profile", element: <Profile /> },
   { path: "/new-member", element: <NewMember /> },
   { path: "/admin", element: <Admin /> },
-  { path: "/admin", element: <Admin /> },
-  { path: "/admin", element: <Admin />},
   { path: "/select", element: <SelectAMA />}
 
 ]);

@@ -9,10 +9,65 @@ import { Link, useLocation } from "react-router-dom";
 
 function SelectAMA() {
   
- 
-  const location = useLocation();
+const [selectedAma, setSelectedAma] = useState(null);
+
+const amaList = [
+{
+id: 1,
+name: "Krisha",
+status: "ACTIVE",
+funFacts: ["Loves chocolate cake", "Loves to hike", "Fun fact 3", "Fun fact 4"],
+blurb: "Hi my name is Krisha and I’m a first year at Northeastern...",
+},
+{
+id: 2,
+name: "Ioanna",
+status: "ACTIVE",
+funFacts: ["Fun Fact 1", "Fun Fact 2"],
+blurb: "Ioanna's example blurb.",
+},
+{
+id: 3,
+name: "Naman",
+status: "ACTIVE",
+funFacts: ["Fun Fact 1", "Fun Fact 2"],
+blurb: "Naman's example blurb.",
+},
+{
+id: 4,
+name: "Rishi",
+status: "ACTIVE",
+funFacts: ["Fun Fact 1", "Fun Fact 2"],
+blurb: "Rishi's example blurb.",
+},
+{
+id: 5,
+name: "Madhav",
+status: "ACTIVE",
+funFacts: ["Fun Fact 1", "Fun Fact 2"],
+blurb: "Madhav's example blurb.",
+},
+{
+id: 6,
+name: "Evan",
+status: "ACTIVE",
+funFacts: ["Fun Fact 1", "Fun Fact 2"],
+blurb: "Evan's example blurb.",
+},
+{
+id: 7,
+name: "Grace",
+status: "ACTIVE",
+funFacts: ["Fun Fact 1", "Fun Fact 2"],
+blurb: "Grace's example blurb.",
+}
+];
+
+const location = useLocation();
+
+const path = location.pathname;
   
-  const getActiveButton = () => {
+const getActiveButton = () => {
     if (location.pathname === "/admin") {
       return "history";
     }
@@ -38,10 +93,55 @@ function SelectAMA() {
         Select</button>
       </Link>
     </div>
-    </div>  
-      <Footer />
-    </>
-  );
+
+{path === "/select" && (
+<div className="select_view">
+<div className="card_grid">
+{amaList.map((ama) => (
+<div
+key={ama.id}
+className="ama_card"
+onClick={() => setSelectedAma(ama)}
+>
+<h4>{ama.name}</h4>
+<p className={ama.status === "ACTIVE" ? "active" : "inactive"}>
+{ama.status}
+</p>
+<ul>
+{ama.funFacts.map((fact, i) => (
+<li key={i}>{fact}</li>
+))}
+</ul>
+</div>
+))}
+</div>
+
+<div className="card_detail">
+{selectedAma ? (
+<>
+<h2>{selectedAma.name}</h2>
+<p>Status: {selectedAma.status}</p>
+<h4>Fun Facts</h4>
+<ul>
+{selectedAma.funFacts.map((fact, i) => (
+<li key={i}>{fact}</li>
+))}
+</ul>
+<h4>Blurb</h4>
+<p>{selectedAma.blurb}</p>
+<button className="select_member_btn">Select this Member</button>
+</>
+) : (
+<p>Select a card to view more info</p>
+)}
+</div>
+</div>
+)}
+</div>
+<Footer />
+</>
+);
+
 }
 
 export default SelectAMA;
