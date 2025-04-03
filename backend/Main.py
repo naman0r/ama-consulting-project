@@ -6,7 +6,9 @@ import ssl
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask import Flask, jsonify
 from supabase import create_client, Client
+import os
 from dotenv import load_dotenv
 # import needed for the slack integration. 
 from slack_sdk.webhook import WebhookClient
@@ -19,6 +21,9 @@ load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+
+
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
@@ -48,7 +53,7 @@ def tests_supabase():
     # can only reqest GET from this endpoint. 
 
 # /users/ GET: List all users
-@app.route('/users/', methods=["GET"])
+@app.route('/users', methods=["GET"])
 def get_users():
     response = supabase.table("users").select("*").execute()
     users = response.data
@@ -82,9 +87,29 @@ def get_fun_facts():
     fun_facts = response.data
     return jsonify({"fun_facts": fun_facts}), 200
 
+
+@app.route('/ama/history', methods=["GET"])
+def get_ama_history():
+    # Query the AMA table to get all past AMA details
+    response = supabase.table("AMA").select("id, user_id, selected_date, blurb, formatted_message, sent_status").execute()
+    ama_history = response.data
+
+    if not ama_history:
+        return jsonify({"error": "No AMA history found"}), 404
+
+    # Fetch user details for each AMA entry
+    detailed_history = []
+    for ama in ama_history:
+        user_response = supabase.table("Users").select("id, name, email").eq("id", ama["user_id"]).execute()
+        user_data = user_response.data
+        if user_data:
+            ama["user"] = user_data[0]  # Add user details to AMA entry
+        detailed_history.append(ama)
+
+    return jsonify({"ama_history": detailed_history}), 200
+
 # /fun_facts/ POST: Submit fun facts
 @app.route('/fun_facts/', methods=["POST"])
-@app.route('/fun_facts', methods=["POST"])
 def submit_fun_fact():
     data = request.json
     user_id = data.get("user_id")
@@ -96,17 +121,16 @@ def submit_fun_fact():
     response = supabase.table("fun_facts").insert({
         "user_id": user_id,
         "fact_text": fact_text,
-        # "created_at": "now()"
+        "created_at": "now()"
     }).execute()
 
-    if not response.data:
-        return jsonify({"error": "Insert failed, no data returned"}), 500
+    if response.error:
+        return jsonify({"error": response.error.message}), 500
     
     return jsonify({"message": "Fun fact added successfully"}), 201
 
 # /ama/select POST: Randomly selects a user
 @app.route('/ama/select', methods=["POST"])
-@app.route('/ama/select/', methods=["POST"])
 def select_random_user():
     response = supabase.table("users").select("*").execute()
     users = response.data
@@ -125,8 +149,8 @@ def select_random_user():
         "sent_status": False
     }).execute()
 
-    if not ama_response.data:
-        return jsonify({"error": "Couldn't find user information"}), 500
+    if ama_response.error:
+        return jsonify({"error": ama_response.error.message}), 500
     
     return jsonify({"selected_user": selected_user}), 200
 
@@ -143,42 +167,7 @@ def get_ama_details():
 
 #     if not user_id:
 #         return jsonify({"error": "Please enter a user"}), 400
-
-
-
-
-@app.route("/ama/send_to_slack", methods=["POST"])
-def send_ama_to_slack(): 
-    data = request.json
-    
-    user_name = data.get('name')
-    fun_facts = data.get('fun_facts')
-    blurb = data.get('blurb')
-    
-    # we need all the elements of an Ama. so a blank error json statement
-    # TODO rishi make this correct. 
-    if not user_name or not fun_facts or not blurb:
-        return jsonify({"error": "Missing AMA data"}), 400
-    
-    formatted_message = f"""
-*🎉 AMA of the Week 🎉*
-
-*Fun Facts:*
-{fun_facts}
-
-*About Me:*
-{blurb}
-
-_Can you guess who this is?_ 🤔
-"""
-
-    webhook = WebhookClient(os.getenv("SLACK_WEBHOOK_URL"))
-    response = webhook.send(text=formatted_message)
-    if response.status_code != 200:
-        return jsonify({"error": "Slack send failed"}), 500
-
-    return jsonify({"message" : "chat am i cooking"}), 200
-    
     
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=4001)
+
