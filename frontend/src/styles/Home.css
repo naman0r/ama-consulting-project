@@ -1,3 +1,16 @@
+.p0 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #5c5c5c;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  margin-top: 40px;
+  margin-left: 40px;
+  margin-right: 10px;
+  text-align: center;
+}
+
 .p1 {
   display: flex;
   justify-content: center;

@@ -12,6 +12,7 @@ function Home() {
       <Header />
       <TopNav />
       <div className="home_page">
+        <p className = "p0">WELCOME! </p>
       <p className="p1">
         Our website will automate the AMA selection process, having a place where members can submit fun facts and a personal blurb.
         Then, each week, a member is chosen at random and the website will generate a response that can be posted in Slack.
