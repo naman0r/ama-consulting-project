@@ -17,66 +17,70 @@ function Login() {
   const navigate = useNavigate();
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    navigate(`/profile/${email}`);
+    try {
+      const response = await fetch('http://localhost:4001/users/');
+      const data = await response.json();
+      console.log(data);
 
-    if (!response.ok) {
-      throw new Error(data.message || 'Failed to fetch users');
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to fetch users');
+      }
+
+      // Find a user matching the email and password
+      const matchedUser = data.users.find(user => user.email === email && user.password === password);
+
+      if (matchedUser) {
+        // Store user info in localStorage or state
+        localStorage.setItem("user", JSON.stringify(matchedUser));
+        navigate(`/profile`);
+      } else {
+        alert('Invalid email or password');
+      }
+
+      setEmail("");
+      setPassword("");
+    } catch (err) {
+      alert('Error: ' + err.message);
     }
+  };
 
-    // Find a user that matches both email and password
-    const matchedUser = data.users.find(user => user.email === email && user.password === password);
+  return (
+    <div>
+      <Header />
+      <TopNav />
 
-    if (matchedUser) {
-      localStorage.setItem("user", JSON.stringify(matchedUser));
-      navigate(`/profile`);
-    } else {
-      alert('Invalid email or password');
-    }
-
-    setEmail("");
-    setPassword("");
-  } catch (err) {
-    alert('Error: ' + err.message);
-  }
-};
-
-return (
-  <div>
-    <Header />
-    <TopNav />
-
-    <main className="login_page">
-      <p className="p5">Login</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p className="p2">Email:</p>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <p className="p2">Password:</p>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button className="login_btn">
-          Login
-        </button>
-      </form>
-    </main>
-    <Footer />
-  </div>
-);
+      <main className="login_page">
+        <p className="p5">Login</p>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <p className="p2">Email:</p>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <p className="p2">Password:</p>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button className="login_btn">
+            Login
+          </button>
+        </form>
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
 export default Login;
