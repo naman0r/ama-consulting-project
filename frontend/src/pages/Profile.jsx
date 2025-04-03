@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import "../styles/Home.css";
 import "../styles/Profile.css";
+import "../styles/Admin.css";
 import TopNav from "../components/TopNav";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
