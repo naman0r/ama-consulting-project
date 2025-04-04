@@ -31,7 +31,7 @@ const NewMember = () => {
       <Header />
       <TopNav />
       <div className="newmem_page">
-        <p className="p3">Submit Your AMA</p>
+        <p className="p5">Submit Your AMA</p>
         <form>
           <p className="p2">
             Enter your name:

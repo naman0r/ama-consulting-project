@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
 .p1 {
   display: flex;
   justify-content: center;
@@ -23,7 +25,7 @@
 }
 
 .p3 {
-  display: flex;
+    display: flex;
     justify-content: center; 
     color: #5c5c5c;
     font-family: 'Quicksand';
@@ -45,6 +47,23 @@
   align-items: center;
   justify-content: center;
   border: 2px solid #45b4eb;
+  margin-bottom: 70px;
+}
+
+.p5, .p6 {
+  display: flex;
+  justify-content: center; 
+  color: #5c5c5c;
+  font-family: 'Quicksand';
+  font-size: 30px;
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  }
+
+.p6 {
+  margin-top: 0px;
+  margin-bottom: 20px;
 }
 
 .home_page {

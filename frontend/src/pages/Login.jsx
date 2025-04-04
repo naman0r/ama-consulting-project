@@ -21,7 +21,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:4001/users/'); // Replace with your actual endpoint
+      const response = await fetch('http://localhost:4001/users/');
       const data = await response.json();
       console.log(data);
 
@@ -29,10 +29,12 @@ function Login() {
         throw new Error(data.message || 'Failed to fetch users');
       }
 
-      // Find a user that matches both email and password
+      // Find a user matching the email and password
       const matchedUser = data.users.find(user => user.email === email && user.password === password);
 
       if (matchedUser) {
+        // Store user info in localStorage or state
+        localStorage.setItem("user", JSON.stringify(matchedUser));
         navigate(`/profile`);
       } else {
         alert('Invalid email or password');
@@ -45,14 +47,13 @@ function Login() {
     }
   };
 
-
   return (
     <div>
       <Header />
       <TopNav />
 
       <main className="login_page">
-        <p className="p3">Login</p>
+        <p className="p5">Login</p>
         <form onSubmit={handleSubmit}>
           <div>
             <p className="p2">Email:</p>
