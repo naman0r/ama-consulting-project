@@ -135,6 +135,56 @@ def get_ama_details():
     response = response.data
     return jsonify({"message": response}), 200
 
+@app.route('/ama/new_member', methods=["POST"])
+def add_new_member():
+    try:
+        data = request.get_json()  # Changed from .json to get_json()
+        print("Received data:", data)  # Debug what's being received
+
+        # Validate required fields
+        required = ['name', 'email', 'password', 'slackId', 'funFacts', 'blurb']
+        if not all(field in data for field in required):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        # Insert into users table
+        user_response = supabase.table("users").insert({
+            "name": data["name"],
+            "email": data["email"],
+            "password": data["password"],  # Note: Should be hashed in production
+            "slack_id": data["slackId"]  # Changed to match Supabase column name
+        }).execute()
+
+        if not user_response.data:
+            return jsonify({"error": "Failed to create user"}), 500
+
+        user_id = user_response.data[0]["id"]
+
+        # Insert into AMA table
+        fun_facts = data["funFacts"]
+        if len(fun_facts) != 5:
+            return jsonify({"error": "Exactly 5 fun facts are required"}), 400
+
+        ama_response = supabase.table("ama").insert({
+            "user_id": user_id,
+            "fact_1": fun_facts[0],
+            "fact_2": fun_facts[1],
+            "fact_3": fun_facts[2],
+            "fact_4": fun_facts[3],
+            "fact_5": fun_facts[4],
+            "blurb": data["blurb"],
+            "sent_status": False
+        }).execute()
+
+        if not ama_response.data:
+            return jsonify({"error": "Failed to insert into AMA table"}), 500
+
+        return jsonify({"message": "Member created successfully", "user_id": user_id}), 201
+
+    except Exception as e:
+        print("Error:", str(e))  # Log the error
+        return jsonify({"error": str(e)}), 500
+
+
 # @app.route('admin/override', methods=["POST"])
 # def select_ama():
 #     data = request.json
@@ -212,3 +262,4 @@ def slack_intro():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=4001)
+
