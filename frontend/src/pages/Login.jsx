@@ -13,38 +13,22 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Use navigate for routing
-  const navigate = useNavigate();
+// Use navigate for routing
+const navigate = useNavigate();
 
   // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    
+    navigate(`/profile/${email}`);
 
-    try {
-      const response = await fetch('http://localhost:4001/users/'); // Replace with your actual endpoint
-      const data = await response.json();
-      console.log(data);
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch users');
-      }
-
-      // Find a user that matches both email and password
-      const matchedUser = data.users.find(user => user.email === email && user.password === password);
-
-      if (matchedUser) {
-        navigate(`/profile`);
-      } else {
-        alert('Invalid email or password');
-      }
-
-      setEmail("");
-      setPassword("");
-    } catch (err) {
-      alert('Error: ' + err.message);
-    }
+    // Reset form fields (optional)
+    setEmail("");
+    setPassword("");
+    setName("");
+    setYear("");
+    setClassName("");
   };
-
 
   return (
     <div>
