@@ -122,9 +122,9 @@ def select_random_user():
     
     return jsonify({"selected_user": selected_user}), 200
 
-@app.route('/ama/history', methods=["GET"])
+@app.route('/ama/history/', methods=["GET"])
 def get_ama_details():
-    response = supabase.table("ama").select("*").execute()
+    response = supabase.table("ama").select("*, users(name)").execute()
     response = response.data
     return jsonify({"message": response}), 200
 
