@@ -6,8 +6,15 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from supabase import create_client, Client
 from dotenv import load_dotenv
+import ssl
 
 load_dotenv()
+
+
+from slack_sdk.webhook import WebhookClient
+ 
+ 
+ssl._create_default_https_context = ssl._create_unverified_context  # Unsafe fallback fix for prod
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
@@ -169,6 +176,39 @@ _Can you guess who this is?_ 🤔
         return jsonify({"error": "Slack send failed"}), 500
 
     return jsonify({"message" : "chat am i cooking"}), 200
+
+
+@app.route("/ama/send_to_slack/intro", methods=["POST"])
+def slack_intro():
+    '''NOTE: this is the intro slack message. Look at what sneha sends: an intro message followed by the first clue. '''
+    data = request.json
+    
+    intro = data.get("intro")
+    clue1 = data.get("first_clue")
+    
+    if not intro or not clue1:
+        return jsonify({"error" : "please ensure you send a POST to this route with a JSON object containing 'intro' and 'first clue'"})
+    
+    formatted_message = f"""
+    
+    *🎉 AMA of the Week 🎉*
+    {intro}
+    
+    {clue1}
+    
+    Can YOU guess tho this is?
+    """
+    
+    webhook = WebhookClient(os.getenv("SLACK_WEBHOOK_URL"))
+    response = webhook.send(text=formatted_message)
+    if response.status_code != 200:
+        return jsonify({"error": "Slack send failed"}), 500
+
+    return jsonify({"message" : "chat am i cooking"}), 200
+    
+    
+    
+    
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=4001)
