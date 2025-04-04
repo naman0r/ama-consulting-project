@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "../styles/Home.css";
 import "../styles/Admin.css";
@@ -9,66 +9,9 @@ import { Link, useLocation } from "react-router-dom";
 
 function SelectAMA() {
   const [selectedAma, setSelectedAma] = useState(null);
-
-  const amaList = [
-    {
-      id: 1,
-      name: "Krisha",
-      status: "ACTIVE",
-      funFacts: [
-        "Loves chocolate cake",
-        "Loves to hike",
-        "Fun fact 3",
-        "Fun fact 4",
-      ],
-      blurb: "Hi my name is Krisha and I’m a first year at Northeastern...",
-    },
-    {
-      id: 2,
-      name: "Ioanna",
-      status: "ACTIVE",
-      funFacts: ["Fun Fact 1", "Fun Fact 2"],
-      blurb: "Ioanna's example blurb.",
-    },
-    {
-      id: 3,
-      name: "Naman",
-      status: "ACTIVE",
-      funFacts: ["Fun Fact 1", "Fun Fact 2"],
-      blurb: "Naman's example blurb.",
-    },
-    {
-      id: 4,
-      name: "Rishi",
-      status: "ACTIVE",
-      funFacts: ["Fun Fact 1", "Fun Fact 2"],
-      blurb: "Rishi's example blurb.",
-    },
-    {
-      id: 5,
-      name: "Madhav",
-      status: "ACTIVE",
-      funFacts: ["Fun Fact 1", "Fun Fact 2"],
-      blurb: "Madhav's example blurb.",
-    },
-    {
-      id: 6,
-      name: "Evan",
-      status: "ACTIVE",
-      funFacts: ["Fun Fact 1", "Fun Fact 2"],
-      blurb: "Evan's example blurb.",
-    },
-    {
-      id: 7,
-      name: "Grace",
-      status: "ACTIVE",
-      funFacts: ["Fun Fact 1", "Fun Fact 2"],
-      blurb: "Grace's example blurb.",
-    },
-  ];
+  const [amaList, setAmaList] = useState([]);
 
   const location = useLocation();
-
   const path = location.pathname;
 
   const getActiveButton = () => {
@@ -83,6 +26,33 @@ function SelectAMA() {
 
   const activeButton = getActiveButton();
 
+  useEffect(() => {
+    fetch("http://localhost:4001/ama/history")
+      .then(res => res.json())
+      .then(data => {
+        const formatted = data.message.map(entry => {
+          const funFactsArray = [
+            entry.fact_1,
+            entry.fact_2,
+            entry.fact_3,
+            entry.fact_4,
+            entry.fact_5,
+          ].filter(Boolean);
+
+          return {
+            id: entry.id,
+            name: entry.users?.name || `User ${entry.user_id}`,
+            status: entry.sent_status ? "SENT" : "ACTIVE",
+            funFacts: funFactsArray,
+            blurb: entry.blurb || "No blurb provided.",
+          };
+        });
+
+        setAmaList(formatted);
+      })
+      .catch(err => console.error("Failed to fetch AMA data:", err));
+  }, []);
+
   return (
     <>
       <Header />
@@ -90,20 +60,12 @@ function SelectAMA() {
       <div className="admin_page">
         <div className="toggle">
           <Link className="toggle_link" to="/admin">
-            <button
-              className={`hist_btn ${
-                activeButton === "history" ? "active" : ""
-              }`}
-            >
-              History{" "}
-            </button>{" "}
+            <button className={`hist_btn ${activeButton === "history" ? "active" : ""}`}>
+              History
+            </button>
           </Link>
           <Link className="toggle_link" to="/select">
-            <button
-              className={`select_btn ${
-                activeButton === "select" ? "active" : ""
-              }`}
-            >
+            <button className={`select_btn ${activeButton === "select" ? "active" : ""}`}>
               Select
             </button>
           </Link>
@@ -119,9 +81,7 @@ function SelectAMA() {
                   onClick={() => setSelectedAma(ama)}
                 >
                   <h4>{ama.name}</h4>
-                  <p
-                    className={ama.status === "ACTIVE" ? "active" : "inactive"}
-                  >
+                  <p className={ama.status === "ACTIVE" ? "active" : "inactive"}>
                     {ama.status}
                   </p>
                   <ul>
@@ -146,9 +106,11 @@ function SelectAMA() {
                   </ul>
                   <h4>Blurb</h4>
                   <p>{selectedAma.blurb}</p>
-                  <button className="select_member_btn">
-                    Select this Member
-                  </button>
+                  {selectedAma.status === "ACTIVE" && (
+                    <button className="select_member_btn">
+                      Select this Member
+                    </button>
+                  )}
                 </>
               ) : (
                 <p>Select a card to view more info</p>

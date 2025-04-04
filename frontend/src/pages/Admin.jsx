@@ -15,14 +15,23 @@ function Admin() {
     fetch("http://localhost:4001/ama/history/")
       .then(res => res.json())
       .then(data => {
-        // ✅ Sort by oldest first (chronological)
-        const sorted = data.message.sort((a, b) => new Date(a.selected_date) - new Date(b.selected_date));
+        const filtered = data.message
+          .filter(entry => entry.sent_status === true)
+          .sort((a, b) => new Date(a.selected_date) - new Date(b.selected_date));
 
-        const formatted = sorted.map(entry => ({
+        const formatted = filtered.map(entry => ({
           name: entry.users?.name || `User ${entry.user_id}`,
           blurb: entry.blurb || "No blurb provided.",
-          funfacts: [entry.fact_1, entry.fact_2, entry.fact_3, entry.fact_4, entry.fact_5].filter(Boolean).join(" • "),
-          date: new Date(entry.selected_date).toLocaleDateString()
+          funfacts: [entry.fact_1, entry.fact_2, entry.fact_3, entry.fact_4, entry.fact_5]
+            .filter(Boolean)
+            .map(fact => `• ${fact}`)
+            .join("\n"),
+          date: new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            timeZone: "UTC"
+          }).format(new Date(entry.selected_date))
         }));
 
         setAmaPeople(formatted);
