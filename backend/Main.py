@@ -136,5 +136,39 @@ def get_ama_details():
 #     if not user_id:
 #         return jsonify({"error": "Please enter a user"}), 400
     
+    
+    
+@app.route("/ama/send_to_slack", methods=["POST"])
+def send_ama_to_slack(): 
+    data = request.json
+    
+    user_name = data.get('name')
+    fun_facts = data.get('fun_facts')
+    blurb = data.get('blurb')
+    
+    # we need all the elements of an Ama. so a blank error json statement
+    # TODO rishi make this correct. 
+    if not user_name or not fun_facts or not blurb:
+        return jsonify({"error": "Missing AMA data"}), 400
+    
+    formatted_message = f"""
+*🎉 AMA of the Week 🎉*
+
+*Fun Facts:*
+{fun_facts}
+
+*About Me:*
+{blurb}
+
+_Can you guess who this is?_ 🤔
+"""
+
+    webhook = WebhookClient(os.getenv("SLACK_WEBHOOK_URL"))
+    response = webhook.send(text=formatted_message)
+    if response.status_code != 200:
+        return jsonify({"error": "Slack send failed"}), 500
+
+    return jsonify({"message" : "chat am i cooking"}), 200
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=4001)
