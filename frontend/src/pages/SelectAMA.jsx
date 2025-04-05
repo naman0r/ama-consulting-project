@@ -53,6 +53,54 @@ function SelectAMA() {
       .catch(err => console.error("Failed to fetch AMA data:", err));
   }, []);
 
+  const handleSendToSlackAndUpdate = async () => {
+    if (!selectedAma) return;
+
+    // Construct payload for Slack message
+    const slackPayload = {
+      intro: `happy monday @channel and welcome to this week’s edition of ama! you know the drill: i’ll be dropping clues throughout the day. if you’re the first to guess correctly, you get a point! let’s get into this week’s clues`,
+      first_clue: `clue #1: ${selectedAma.funFacts[0]}`
+    };
+
+    try {
+      // Send the Slack message
+      const slackResponse = await fetch("http://localhost:4001/ama/send_to_slack/intro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(slackPayload),
+      });
+      const slackData = await slackResponse.json();
+      if (!slackResponse.ok) {
+        alert("Error sending AMA to Slack: " + slackData.error);
+        return;
+      }
+
+      // Now update the sent_status in the database
+      const updatePayload = { ama_id: selectedAma.id };
+      const updateResponse = await fetch("http://localhost:4001/ama/update_sent_status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatePayload),
+      });
+      const updateData = await updateResponse.json();
+      if (!updateResponse.ok) {
+        alert("Error updating AMA record: " + updateData.error);
+        return;
+      }
+
+      alert("AMA sent to Slack and record updated successfully!");
+
+      // Update local state: mark the selected AMA as SENT
+      setSelectedAma({ ...selectedAma, status: "SENT" });
+      setAmaList((prev) =>
+        prev.map((ama) => (ama.id === selectedAma.id ? { ...ama, status: "SENT" } : ama))
+      );
+    } catch (error) {
+      console.error("Error processing request:", error);
+      alert("An error occurred while processing the request.");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -107,7 +155,10 @@ function SelectAMA() {
                   <h4>Blurb</h4>
                   <p>{selectedAma.blurb}</p>
                   {selectedAma.status === "ACTIVE" && (
-                    <button className="select_member_btn">
+                    <button
+                      className="select_member_btn"
+                      onClick={handleSendToSlackAndUpdate}
+                    >
                       Select this Member
                     </button>
                   )}

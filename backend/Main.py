@@ -6,6 +6,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from supabase import create_client, Client
 from dotenv import load_dotenv
+from datetime import datetime
 import ssl
 
 load_dotenv()
@@ -182,6 +183,31 @@ def add_new_member():
 
     except Exception as e:
         print("Error:", str(e))  # Log the error
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/ama/update_sent_status', methods=["POST"])
+def update_sent_status():
+    try:
+        # Parse the incoming JSON data
+        data = request.get_json()
+        ama_id = data.get("ama_id") # The ID of the AMA record to update
+
+        if not ama_id:
+            return jsonify({"error": "Missing required field: ama_id"}), 400
+
+        # Update the 'sent_status' and 'selected_date' fields in the AMA table
+        response = supabase.table("ama").update({
+        "sent_status": True,
+        "selected_date": datetime.now().isoformat() # Current date and time in ISO format
+        }).eq("id", ama_id).execute()
+
+        if not response.data:
+            return jsonify({"error": "Failed to update AMA record or record not found"}), 404
+
+        return jsonify({"message": "AMA record updated successfully"}), 200
+
+    except Exception as e:
+        print("Error:", str(e)) # Log the error for debugging
         return jsonify({"error": str(e)}), 500
 
 
