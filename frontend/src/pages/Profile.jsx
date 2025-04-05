@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function Profile() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const [funFacts, setFunFacts] = useState([]);
   const [blurb, setBlurb] = useState("Loading...");
 
